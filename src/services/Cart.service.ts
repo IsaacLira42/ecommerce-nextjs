@@ -15,4 +15,8 @@ export class CartService {
 	create = async (data: CreateCartDto): Promise<ResponseCartDto> => {
 		return await this.cartRespository.create(data);
 	};
+
+	delete = async (id: number): Promise<ResponseCartDto | null> => {
+		return await this.cartRespository.delete(id);
+	};
 }
