@@ -33,21 +33,6 @@ export async function GET(
 	}
 }
 
-export async function POST(req: Request) {
-	try {
-		const body = await req.json();
-		const data = CreateCartSchema.parse(body);
-
-		const cart = await serviceCart.create(data);
-		return NextResponse.json(cart, { status: 201 });
-	} catch (err: any) {
-		return NextResponse.json(
-			{ error: "Erro ao criar o carrinho" },
-			{ status: 500 }
-		);
-	}
-}
-
 export async function DELETE(
 	req: Request,
 	{ params }: { params: { id: string } }

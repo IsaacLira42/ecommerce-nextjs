@@ -1,11 +1,11 @@
-import { CartRespository } from "@/repository/Cart.repository";
+import { CartRepository } from "@/repository/Cart.repository";
 import { CreateCartDto, ResponseCartDto } from "@/types/cart/cart.dto";
 
 export class CartService {
-	private cartRespository: CartRespository;
+	private cartRespository: CartRepository;
 
 	constructor() {
-		this.cartRespository = new CartRespository();
+		this.cartRespository = new CartRepository();
 	}
 
 	findById = async (id: number) => {
