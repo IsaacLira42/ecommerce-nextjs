@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export function Header() {
 	return (
-		<header className="p-4">
-			<div className="max-w-screen-lg mx-auto flex justify-between items-center">
+		<header className="py-4">
+			<div className="flex justify-between items-center px-4 lg:px-24">
 				<Link href="/" className="text-3xl text-lime-400 font-bold">
 					Lira Shop
 				</Link>
