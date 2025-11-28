@@ -1,5 +1,6 @@
 import { ProductList } from "@/components/products/ProductList";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
 	return (
@@ -18,21 +19,15 @@ export default function Home() {
 								</p>
 							</div>
 							<div className="space-x-4">
-								<Button
-									variant="outline"
-									className="text-emerald-900 bordxt-emetext-emerald-900 hover:xt-emetext-emerald-900"
-								>
-									Saiba Mais
-								</Button>
 								<Button className="bg-emerald-900 text-white hover:bg-lime-400 hover:text-emerald-900">
-									Ver Produtos
+									<Link href="/products">Ver Produtos</Link>
 								</Button>
 							</div>
 						</div>
 					</div>
 				</section>
 
-				<ProductList title={"Mais vendidos"} />
+				<ProductList title={"Mais vendidos"} showAll={false} />
 			</main>
 		</div>
 	);

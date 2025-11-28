@@ -14,7 +14,6 @@ import { ResponseProductDto } from "@/types/product/product.dto";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/components/cart/CartProvider";
 
-
 /* DADOS MOCKADOS PARA TESTE */
 /*
 const MOCK_PRODUCTS: ResponseProductDto[] = [
@@ -51,9 +50,10 @@ const MOCK_PRODUCTS: ResponseProductDto[] = [
 
 interface PropetiesProductList {
 	title: string;
+	showAll?: boolean;
 }
 
-export function ProductList({ title }: PropetiesProductList) {
+export function ProductList({ title, showAll }: PropetiesProductList) {
 	const [products, setProducts] = useState<ResponseProductDto[]>([]);
 	const { toast } = useToast();
 	const { addItem } = useCart();
@@ -87,14 +87,16 @@ export function ProductList({ title }: PropetiesProductList) {
 		});
 	};
 
+	const displayedProducts = showAll ? products : products.slice(0, 8);
+
 	return (
 		<section className="w-full">
 			<div>
-				<h2 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
+				<h2 className="text-2xl font-bold  sm:text-4xl md:text-5xl text-center mb-8">
 					{title}
 				</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-					{products.map((product) => (
+					{displayedProducts.map((product) => (
 						<Card key={product.id}>
 							<CardHeader>
 								<img
