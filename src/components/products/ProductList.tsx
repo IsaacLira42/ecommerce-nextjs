@@ -12,9 +12,11 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { ResponseProductDto } from "@/types/product/product.dto";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/components/cart/CartProvider";
 
-////////////////////////////////////////////////////////////
 
+/* DADOS MOCKADOS PARA TESTE */
+/*
 const MOCK_PRODUCTS: ResponseProductDto[] = [
 	{
 		id: 1,
@@ -45,24 +47,40 @@ const MOCK_PRODUCTS: ResponseProductDto[] = [
 			"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=800",
 	},
 ];
+*/
 
-////////////////////////////////////////////////////////////
+interface PropetiesProductList {
+	title: string;
+}
 
-export function ProductList() {
+export function ProductList({ title }: PropetiesProductList) {
 	const [products, setProducts] = useState<ResponseProductDto[]>([]);
 	const { toast } = useToast();
+	const { addItem } = useCart();
 
 	useEffect(() => {
-		// fetch("/api/products")
-		// 	.then((res) => res.json())
-		// 	.then((data) => {
-		// 		setProducts(data);
-		// 	});
-		setProducts(MOCK_PRODUCTS);
-	}, []);
+		const loadProducts = async () => {
+			try {
+				const response = await fetch("/api/products");
+				if (!response.ok) {
+					throw new Error("Falha ao carregar produtos");
+				}
+				const data: ResponseProductDto[] = await response.json();
+				setProducts(data);
+			} catch (error) {
+				console.error(error);
+				toast({
+					title: "Erro ao carregar produtos",
+					description: "Tente novamente mais tarde.",
+				});
+			}
+		};
+
+		loadProducts();
+	}, [toast]);
 
 	const handleAddToCart = (product: ResponseProductDto) => {
-		console.log(`${product.name} adicionado ao carrinho`);
+		addItem(product);
 		toast({
 			title: "Produto adicionado!",
 			description: `${product.name} foi adicionado ao seu carrinho.`,
@@ -70,12 +88,12 @@ export function ProductList() {
 	};
 
 	return (
-		<section className="w-full py-12 md:py-20 lg:py-24">
+		<section className="w-full">
 			<div>
-				<h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-					Nossos Produtos
+				<h2 className="text-2xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
+					{title}
 				</h2>
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 					{products.map((product) => (
 						<Card key={product.id}>
 							<CardHeader>

@@ -1,16 +1,13 @@
-import { Product } from "@/generated/prisma";
+import { Product } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import {
-	CreateProductDto,
-	ResponseProductDto,
-} from "@/types/product/product.dto";
+import { CreateProductDto } from "@/types/product/product.dto";
 
 export class ProductRepository {
-	async findAll(): Promise<ResponseProductDto[]> {
+	async findAll(): Promise<Product[]> {
 		return await prisma.product.findMany();
 	}
 
-	async findById(id: number): Promise<ResponseProductDto | null> {
+	async findById(id: number): Promise<Product | null> {
 		return await prisma.product.findUnique({
 			where: {
 				id: id,

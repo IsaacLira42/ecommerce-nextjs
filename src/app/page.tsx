@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<div>
 			<main className="flex min-h-screen flex-col items-center justify-between px-4 lg:px-24 mt-4">
-				<section className="w-full py-12 md:py-24 lg:py-32 rounded-2xl bg-lime-200 text-emerald-900">
+				<section className="w-full py-12 md:py-24 lg:py-32 mb-12 mb:mb-20 lg:mb-32 rounded-2xl bg-lime-200 text-emerald-900">
 					<div className="container px-4 md:px-6">
 						<div className="flex flex-col items-center space-y-4 text-center">
 							<div className="space-y-2">
@@ -32,7 +32,7 @@ export default function Home() {
 					</div>
 				</section>
 
-				<ProductList />
+				<ProductList title={"Mais vendidos"} />
 			</main>
 		</div>
 	);
