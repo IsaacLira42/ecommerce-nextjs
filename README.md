@@ -1,5 +1,9 @@
 # 🚀 E-commerce Nextjs
 
+<img src="./public/interface.png"/>
+
+---
+
 <div align="center">
 
 🌐 **DEPLOY ATUAL:** **[https://ecommerce-nextjs-mu-silk.vercel.app/](https://ecommerce-nextjs-mu-silk.vercel.app/)**
@@ -15,14 +19,15 @@ Ideal como base para estudos, desafios técnicos e evolução para projetos maio
 
 ## 📌 Visão Geral
 
-* Página inicial com **listagem de produtos** via `GET /api/products`.
-* **Carrinho persistente**:
+- Página inicial com **listagem de produtos** via `GET /api/products`.
+- **Carrinho persistente**:
 
-  * adiciona, remove e limpa itens;
-  * subtotal e total calculados automaticamente;
-  * sincronização completa com o banco via API.
-* Armazenamento do `cartId` no **localStorage**.
-* Backend implementado com **route handlers** do App Router.
+  - adiciona, remove e limpa itens;
+  - subtotal e total calculados automaticamente;
+  - sincronização completa com o banco via API.
+
+- Armazenamento do `cartId` no **localStorage**.
+- Backend implementado com **route handlers** do App Router.
 
 ---
 
@@ -45,6 +50,7 @@ Ideal como base para estudos, desafios técnicos e evolução para projetos maio
 </div>
 
 ### **Deploy**
+
 <div>
 <img src="./public/favicon-neon.png" height="48" alt="node logo" /> 
 <img src="https://skillicons.dev/icons?i=vercel" height="48" alt="vercel logo" />
@@ -58,24 +64,24 @@ Estrutura definida em `prisma/schema.prisma`:
 
 ### **Product**
 
-* `id` *(Int, PK, autoincrement)*
-* `name` *(String)*
-* `price` *(Float)*
-* `imageUrl` *(String)*
+- `id` _(Int, PK, autoincrement)_
+- `name` _(String)_
+- `price` _(Float)_
+- `imageUrl` _(String)_
 
 ### **Cart**
 
-* `id` *(Int, PK, autoincrement)*
-* `subtotal` *(Float)*
-* `total` *(Float)*
+- `id` _(Int, PK, autoincrement)_
+- `subtotal` _(Float)_
+- `total` _(Float)_
 
 ### **CartItem**
 
-* `id` *(Int, PK, autoincrement)*
-* `quantity` *(Int, default 1)*
-* `cartId` *(FK → Cart)*
-* `productId` *(FK → Product)*
-* `@@unique([cartId, productId])`
+- `id` _(Int, PK, autoincrement)_
+- `quantity` _(Int, default 1)_
+- `cartId` _(FK → Cart)_
+- `productId` _(FK → Product)_
+- `@@unique([cartId, productId])`
 
 ---
 
@@ -85,38 +91,38 @@ Estrutura definida em `prisma/schema.prisma`:
 
 Responsáveis por acesso ao banco via Prisma:
 
-* `ProductRepository`
-* `CartRepository`
+- `ProductRepository`
+- `CartRepository`
 
 ### **🔹 Serviços (`src/services`)**
 
 Orquestram regras de negócio:
 
-* `ProductService`
-* `CartService`
+- `ProductService`
+- `CartService`
 
 ### **🔹 DTOs & Validação (`src/types`)**
 
-* Schemas com **Zod**
-* DTOs inferidos dos schemas
+- Schemas com **Zod**
+- DTOs inferidos dos schemas
 
 ### **🔹 API (`src/app/api`)**
 
-* Route handlers com App Router
-* Métodos GET / POST / PUT / DELETE para produtos e carrinho
+- Route handlers com App Router
+- Métodos GET / POST / PUT / DELETE para produtos e carrinho
 
 ### **🔹 Gerenciamento de Estado**
 
-* `CartProvider` controla estado global do carrinho
-* Persistência do `cartId` + sincronização com backend
+- `CartProvider` controla estado global do carrinho
+- Persistência do `cartId` + sincronização com backend
 
 ---
 
 # 🛠 Pré-requisitos
 
-* Node 18+
-* PostgreSQL (local ou remoto)
-* Gerenciador de pacotes (npm, pnpm ou yarn)
+- Node 18+
+- PostgreSQL (local ou remoto)
+- Gerenciador de pacotes (npm, pnpm ou yarn)
 
 ---
 
@@ -127,6 +133,7 @@ Orquestram regras de negócio:
 ```bash
 git clone https://github.com/IsaacLira42/ecommerce-nextjs.git
 ```
+
 ```bash
 cd ecommerce-nextjs
 ```
@@ -134,12 +141,14 @@ cd ecommerce-nextjs
 ### 2. Use Node.js 20
 
 #### **Para NVM:**
+
 ```bash
 nvm install 20
 nvm use 20
 ```
 
 #### **Para FNM:**
+
 ```bash
 fnm install 20
 fnm use 20
@@ -184,26 +193,27 @@ App disponível em:
 
 ### **Produtos**
 
-* **GET `/api/products`** — lista produtos
+- **GET `/api/products`** — lista produtos
 
 ### **Carrinho**
 
-* **POST `/api/cart`** — cria um carrinho
-* **PUT `/api/cart`** — atualiza um carrinho
-* **GET `/api/cart/:id`** — recupera carrinho
-* **DELETE `/api/cart/:id`** — remove carrinho
+- **POST `/api/cart`** — cria um carrinho
+- **PUT `/api/cart`** — atualiza um carrinho
+- **GET `/api/cart/:id`** — recupera carrinho
+- **DELETE `/api/cart/:id`** — remove carrinho
 
 ---
 
 # 🛒 Interface & Fluxo do Usuário
 
-* Lista produtos na home.
-* Botão “Adicionar ao carrinho”.
-* Página `/cart` com:
+- Lista produtos na home.
+- Botão “Adicionar ao carrinho”.
+- Página `/cart` com:
 
-  * lista de itens;
-  * quantidade;
-  * subtotal e total;
-  * limpar carrinho;
-  * remover produto.
-* Todo estado sincronizado com a API e banco.
+  - lista de itens;
+  - quantidade;
+  - subtotal e total;
+  - limpar carrinho;
+  - remover produto.
+
+- Todo estado sincronizado com a API e banco.
