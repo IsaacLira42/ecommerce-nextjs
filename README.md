@@ -30,20 +30,25 @@ Ideal como base para estudos, desafios técnicos e evolução para projetos maio
 
 ### **Frontend & Framework**
 
-<img src="https://skillicons.dev/icons?i=nextjs" height="48" alt="nextjs logo" />
-<img src="https://skillicons.dev/icons?i=react" height="48" alt="react logo" />
-<img src="https://skillicons.dev/icons?i=ts" height="48" alt="ts logo" />
-<img src="https://skillicons.dev/icons?i=tailwind" height="48" alt="tailwind logo" />
+<div>
+<img src="https://skillicons.dev/icons?i=nextjs" height="48" alt="nextjs logo" /> 
+<img src="https://skillicons.dev/icons?i=react" height="48" alt="react logo" /> 
+<img src="https://skillicons.dev/icons?i=ts" height="48" alt="ts logo" /> 
+<img src="https://skillicons.dev/icons?i=tailwind" height="48" alt="tailwind logo" /> 
+</div>
 
 ### **Backend & ORM**
 
-<img src="https://skillicons.dev/icons?i=prisma" height="48" alt="prisma logo" />
+<div>
+<img src="https://skillicons.dev/icons?i=prisma" height="48" alt="prisma logo" /> 
 <img src="https://skillicons.dev/icons?i=postgres" height="48" alt="postgres logo" />
+</div>
 
 ### **Deploy**
-
-<img src="./public/favicon-neon.png" height="48" alt="node logo" />
+<div>
+<img src="./public/favicon-neon.png" height="48" alt="node logo" /> 
 <img src="https://skillicons.dev/icons?i=vercel" height="48" alt="vercel logo" />
+</div>
 
 ---
 
