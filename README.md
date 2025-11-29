@@ -1,213 +1,204 @@
-# E-commerce Next.js
+# 🚀 E-commerce Nextjs
 
-Aplicação web simples de e-commerce construída com **Next.js (App Router)** e **PostgreSQL**, como parte de um desafio técnico. O projeto permite listar produtos, adicionar/remover itens do carrinho e persistir o estado do carrinho no banco usando **Prisma ORM**.
+<div align="center">
 
----
+🌐 **DEPLOY ATUAL:** **[https://ecommerce-nextjs-mu-silk.vercel.app/](https://ecommerce-nextjs-mu-silk.vercel.app/)**
 
-## Visão geral
+[![Vercel](https://img.shields.io/badge/🌐_Visitar_Deploy-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://ecommerce-nextjs-mu-silk.vercel.app/)
 
-- **Listagem de produtos** na página principal, consumindo a API `GET /api/products`.
-- **Carrinho de compras** com:
-  - adicionar produto ao carrinho;
-  - remover produto do carrinho;
-  - limpar carrinho;
-  - exibição de subtotal e total.
-- **Persistência do carrinho** no PostgreSQL, com `cartId` armazenado no `localStorage` e sincronização automática via API (`/api/cart`).
+</div>
+
+Aplicação web de e-commerce construída com **Next.js (App Router)**, **Prisma ORM** e **PostgreSQL**, permitindo listar produtos, adicionar itens ao carrinho e persistir o estado no banco.
+Ideal como base para estudos, desafios técnicos e evolução para projetos maiores.
 
 ---
 
-## Tecnologias utilizadas
+## 📌 Visão Geral
 
-- **Next.js 14** (App Router)
-- **React 18**
-- **TypeScript**
-- **Prisma ORM** + **PostgreSQL**
-- **Tailwind CSS**
-- **Radix UI / shadcn-like components** (botões, cards, etc.)
-- **Zod** para validação de schemas da API
+* Página inicial com **listagem de produtos** via `GET /api/products`.
+* **Carrinho persistente**:
 
----
-
-## Modelagem do banco de dados
-
-Banco configurado em `prisma/schema.prisma` usando PostgreSQL:
-
-- **products** (`Product`)
-  - `id` (Int, PK, autoincrement)
-  - `name` (String)
-  - `price` (Float)
-  - `imageUrl` (String)
-
-- **cart** (`Cart`)
-  - `id` (Int, PK, autoincrement)
-  - `subtotal` (Float, default 0)
-  - `total` (Float, default 0)
-
-- **cart_items** (`CartItem`)
-  - `id` (Int, PK, autoincrement)
-  - `quantity` (Int, default 1)
-  - `cartId` (FK para `Cart.id`)
-  - `productId` (FK para `Product.id`)
-  - `@@unique([cartId, productId])` para garantir um produto único por carrinho.
+  * adiciona, remove e limpa itens;
+  * subtotal e total calculados automaticamente;
+  * sincronização completa com o banco via API.
+* Armazenamento do `cartId` no **localStorage**.
+* Backend implementado com **route handlers** do App Router.
 
 ---
 
-## Decisões de arquitetura
+# 🧩 Tecnologias Utilizadas
 
-- **Camada de repositórios** (`src/repository`)
-  - `ProductRepository`: acesso direto ao Prisma para CRUD de produtos.
-  - `CartRepository`: leitura/criação/atualização/remoção de carrinhos e itens.
+### **Frontend & Framework**
 
-- **Camada de serviços** (`src/services`)
-  - `ProductService`: orquestra regras de listagem e criação de produtos, retornando DTOs prontos para a API.
-  - `CartService`: centraliza a lógica de montagem do carrinho e transformação para DTO de resposta.
+<img src="https://skillicons.dev/icons?i=nextjs" height="48" alt="nextjs logo" />
+<img src="https://skillicons.dev/icons?i=react" height="48" alt="react logo" />
+<img src="https://skillicons.dev/icons?i=ts" height="48" alt="ts logo" />
+<img src="https://skillicons.dev/icons?i=tailwind" height="48" alt="tailwind logo" />
 
-- **DTOs e validação com Zod** (`src/types`)
-  - Schemas Zod (`cart.schema.ts`, `product.schema.ts`) garantem a forma dos payloads.
-  - Tipos `CreateCartDto`, `UpdateCartDto`, `ResponseCartDto`, `ResponseProductDto` são inferidos dos schemas.
+### **Backend & ORM**
 
-- **Camada de API com App Router** (`src/app/api`)
-  - Endpoints implementados como route handlers (`route.ts`) que chamam a camada de serviços.
+<img src="https://skillicons.dev/icons?i=prisma" height="48" alt="prisma logo" />
+<img src="https://skillicons.dev/icons?i=postgres" height="48" alt="postgres logo" />
 
-- **Gerenciamento de estado do carrinho no frontend**
-  - `CartProvider` (`src/components/cart/CartProvider.tsx`) expõe contexto com itens, subtotal, total e ações (`addItem`, `removeItem`, `clearCart`).
-  - Sincronização automática com a API: ao alterar itens, o provider faz `POST` ou `PUT` em `/api/cart` e armazena o `cartId` no `localStorage`.
+### **Deploy**
+
+<img src="./public/favicon-neon.png" height="48" alt="node logo" />
+<img src="https://skillicons.dev/icons?i=vercel" height="48" alt="vercel logo" />
 
 ---
 
-## Pré-requisitos
+# 🗂 Modelagem do Banco
 
-- **Node.js** >= 18
-- **npm** (ou outro gerenciador de pacotes compatível)
-- **PostgreSQL** rodando localmente ou em algum serviço (RDS, Supabase, etc.)
+Estrutura definida em `prisma/schema.prisma`:
+
+### **Product**
+
+* `id` *(Int, PK, autoincrement)*
+* `name` *(String)*
+* `price` *(Float)*
+* `imageUrl` *(String)*
+
+### **Cart**
+
+* `id` *(Int, PK, autoincrement)*
+* `subtotal` *(Float)*
+* `total` *(Float)*
+
+### **CartItem**
+
+* `id` *(Int, PK, autoincrement)*
+* `quantity` *(Int, default 1)*
+* `cartId` *(FK → Cart)*
+* `productId` *(FK → Product)*
+* `@@unique([cartId, productId])`
 
 ---
 
-## Configuração do ambiente
+# 🏗 Arquitetura do Projeto
 
-1. **Clonar o repositório**
+### **🔹 Repositórios (`src/repository`)**
+
+Responsáveis por acesso ao banco via Prisma:
+
+* `ProductRepository`
+* `CartRepository`
+
+### **🔹 Serviços (`src/services`)**
+
+Orquestram regras de negócio:
+
+* `ProductService`
+* `CartService`
+
+### **🔹 DTOs & Validação (`src/types`)**
+
+* Schemas com **Zod**
+* DTOs inferidos dos schemas
+
+### **🔹 API (`src/app/api`)**
+
+* Route handlers com App Router
+* Métodos GET / POST / PUT / DELETE para produtos e carrinho
+
+### **🔹 Gerenciamento de Estado**
+
+* `CartProvider` controla estado global do carrinho
+* Persistência do `cartId` + sincronização com backend
+
+---
+
+# 🛠 Pré-requisitos
+
+* Node 18+
+* PostgreSQL (local ou remoto)
+* Gerenciador de pacotes (npm, pnpm ou yarn)
+
+---
+
+# ⚙️ Configuração do Ambiente
+
+### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/ecommerce-nextjs.git
+git clone https://github.com/IsaacLira42/ecommerce-nextjs.git
+```
+```bash
 cd ecommerce-nextjs
 ```
 
-2. **Instalar dependências**
+### 2. Use Node.js 20
+
+#### **Para NVM:**
+```bash
+nvm install 20
+nvm use 20
+```
+
+#### **Para FNM:**
+```bash
+fnm install 20
+fnm use 20
+```
+
+### 3. Instale dependências
 
 ```bash
 npm install
 ```
 
-3. **Configurar variáveis de ambiente**
-
-Copie o arquivo `.env.example` para `.env` e ajuste a `DATABASE_URL` de acordo com o seu PostgreSQL:
+### 4. Configure o `.env`
 
 ```bash
 cp .env.example .env
 ```
 
-Exemplo de valor em `.env`:
-
-```env
-DATABASE_URL="postgres://postgres:SENHA@localhost:5432/NOME_DO_BANCO_DE_DADOS"
-```
-
-4. **Rodar migrações do Prisma**
-
-Aplicar o schema no banco de dados:
+### 5. Aplique as migrações
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-5. **Popular o banco com dados de exemplo (seed)**
-
-O projeto possui um script de seed configurado em `prisma/seed.js`:
+### 6. Popule o banco (seed)
 
 ```bash
 npm run db:seed
 ```
 
-6. **Executar o servidor de desenvolvimento**
+### 7. Rode o servidor
 
 ```bash
 npm run dev
 ```
 
-O projeto ficará disponível em: [http://localhost:3000](http://localhost:3000).
+App disponível em:
+➡️ [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Endpoints da API
+# 📡 Endpoints da API
 
-### Produtos
+### **Produtos**
 
-- **GET `/api/products`**
-  - **Descrição:** lista todos os produtos cadastrados.
-  - **Resposta 200:**
-    - Array de objetos no formato:
-      - `id`: number
-      - `name`: string
-      - `price`: number
-      - `imageUrl`: string
+* **GET `/api/products`** — lista produtos
 
-### Carrinho
+### **Carrinho**
 
-- **POST `/api/cart`**
-  - **Descrição:** cria um novo carrinho com itens e totais.
-  - **Body (JSON):**
-    - `items`: `[{ productId: number, quantity: number }]`
-    - `subtotal`: number
-    - `total`: number
-  - **Resposta 201:** objeto do carrinho criado com itens e produtos aninhados.
-
-- **PUT `/api/cart`**
-  - **Descrição:** atualiza um carrinho existente.
-  - **Body (JSON):**
-    - `id`: number (id do carrinho)
-    - `items`: `[{ productId: number, quantity: number }]`
-    - `subtotal`: number
-    - `total`: number
-  - **Resposta 200:** carrinho atualizado.
-
-- **GET `/api/cart/:id`**
-  - **Descrição:** busca um carrinho pelo seu `id`.
-  - **Parâmetros de rota:**
-    - `id`: number
-  - **Respostas:**
-    - `200`: carrinho encontrado com itens e produtos.
-    - `404`: quando o carrinho não é encontrado.
-
-- **DELETE `/api/cart/:id`**
-  - **Descrição:** remove um carrinho e seus itens.
-  - **Parâmetros de rota:**
-    - `id`: number
-  - **Respostas:**
-    - `200`: carrinho removido.
-    - `404`: quando o carrinho não é encontrado.
+* **POST `/api/cart`** — cria um carrinho
+* **PUT `/api/cart`** — atualiza um carrinho
+* **GET `/api/cart/:id`** — recupera carrinho
+* **DELETE `/api/cart/:id`** — remove carrinho
 
 ---
 
-## Interface e fluxo do usuário
+# 🛒 Interface & Fluxo do Usuário
 
-- Página inicial lista produtos e permite **adicionar ao carrinho**.
-- Página de **carrinho** (`/cart`) exibe:
-  - itens com nome, quantidade, preço unitário e total por item;
-  - **subtotal** e **total** do carrinho;
-  - ações de **remover item**, **limpar carrinho** e botão de **finalizar compra** (fluxo de checkout pode ser evoluído).
+* Lista produtos na home.
+* Botão “Adicionar ao carrinho”.
+* Página `/cart` com:
 
----
-
-## Build e produção
-
-Para gerar uma build de produção:
-
-```bash
-npm run build
-npm start
-```
-
-Em produção, é necessário configurar a variável `DATABASE_URL` no provedor de deploy (Vercel, Render, etc.) apontando para o banco PostgreSQL acessível pelo ambiente.
-
-> **Obs.:** Preencha aqui, no README do repositório público, a URL do domínio em produção quando o deploy estiver pronto.
-
+  * lista de itens;
+  * quantidade;
+  * subtotal e total;
+  * limpar carrinho;
+  * remover produto.
+* Todo estado sincronizado com a API e banco.
