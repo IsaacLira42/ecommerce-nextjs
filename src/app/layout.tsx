@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { Header } from "@/components/ui/Header"; // Importação do Header
 import { Toaster } from "@/components/ui/toaster";
 import { CartProvider } from "@/components/cart/CartProvider";
+import { Footer } from "@/components/ui/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
 					<Header />
 					{children}
 					<Toaster />
+					<Footer />
 				</CartProvider>
 			</body>
 		</html>

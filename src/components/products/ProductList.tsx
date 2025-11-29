@@ -92,7 +92,7 @@ export function ProductList({ title, showAll }: PropetiesProductList) {
 	return (
 		<section className="w-full">
 			<div>
-				<h2 className="text-2xl font-bold  sm:text-4xl md:text-5xl text-center mb-8">
+				<h2 className="text-2xl font-bold sm:text-4xl md:text-5xl text-center mb-8">
 					{title}
 				</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
