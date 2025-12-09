@@ -3,6 +3,8 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { ResponseProductDto } from "@/types/product/product.dto";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+
 type CartItem = {
     product: ResponseProductDto;
     quantity: number;
@@ -35,7 +37,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
         const loadCart = async () => {
             try {
-                const response = await fetch(`/api/cart/${id}`);
+                const response = await fetch(`${API_URL}/cart/${id}`);
 
                 if (!response.ok) {
                     return;
@@ -120,7 +122,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
             try {
                 if (!cartId) {
-                    const response = await fetch("/api/cart", {
+                    const response = await fetch(`${API_URL}/cart`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -140,7 +142,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                     }
 
                 } else {
-                    const response = await fetch("/api/cart", {
+                    const response = await fetch(`${API_URL}/cart`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json",

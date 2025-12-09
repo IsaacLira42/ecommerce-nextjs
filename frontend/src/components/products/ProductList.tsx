@@ -14,6 +14,8 @@ import { ResponseProductDto } from "@/types/product/product.dto";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/components/cart/CartProvider";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+
 /* DADOS MOCKADOS PARA TESTE */
 /*
 const MOCK_PRODUCTS: ResponseProductDto[] = [
@@ -61,7 +63,7 @@ export function ProductList({ title, showAll }: PropetiesProductList) {
 	useEffect(() => {
 		const loadProducts = async () => {
 			try {
-				const response = await fetch("/api/products");
+				const response = await fetch(`${API_URL}/products`);
 				if (!response.ok) {
 					throw new Error("Falha ao carregar produtos");
 				}
